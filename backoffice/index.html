@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Backoffice | Umairah Tarsoo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Umairah<span>.</span></h2>
+
+      <div class="header-right">
+
+  <div class="admin-badge">
+    Project Backoffice
+  </div>
+
+  <button id="logoutBtn" class="logout-btn">
+    Logout
+  </button>
+
+</div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="admin-hero">
+      <div>
+        <p class="intro">Admin Dashboard</p>
+        <h1>Portfolio Project Management</h1>
+        <p>
+          Manage portfolio projects dynamically using a REST API connected to a MySQL database.
+        </p>
+      </div>
+
+      <div class="stats-card">
+        <h2 id="projectTotal">0</h2>
+        <p>Total Projects</p>
+      </div>
+    </section>
+
+    <section class="dashboard">
+
+      <div class="form-card">
+        <h2>Add / Edit Project</h2>
+
+        <form id="projectForm">
+
+          <input type="hidden" id="projectId">
+
+          <label>Project Title</label>
+          <input type="text" id="title" placeholder="Enter project title" required>
+
+          <label>Category</label>
+          <input type="text" id="category" placeholder="Enter project category" required>
+
+          <label>Description</label>
+          <textarea id="description" placeholder="Enter project description" required></textarea>
+
+          <label>Tags</label>
+          <input type="text" id="tags" placeholder="Example: HTML, CSS, JavaScript" required>
+
+          <button type="submit" class="save-btn">Save Project</button>
+
+          <p id="message"></p>
+
+        </form>
+      </div>
+
+      <div class="projects-panel">
+        <div class="panel-heading">
+          <h2>Projects List</h2>
+          <p>View, update and remove portfolio projects.</p>
+        </div>
+
+        <div id="projectsList"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
