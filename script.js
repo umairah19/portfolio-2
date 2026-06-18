@@ -3,7 +3,7 @@ function toggleMenu() {
   navLinks.classList.toggle("active");
 }
 
-const API_URL = "http://localhost:5000/api/projects";
+const API_URL = "https://portfolio-2-production-a642.up.railway.app/api/projects";
 
 async function loadProjects() {
   const projectsContainer = document.getElementById("homepageProjects");

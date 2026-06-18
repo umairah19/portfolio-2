@@ -2,7 +2,7 @@ if (localStorage.getItem("isAdminLoggedIn") !== "true") {
   window.location.href = "login.html";
 }
 
-const API_URL = "http://localhost:5000/api/projects";
+const API_URL = "https://portfolio-2-production-a642.up.railway.app/api/projects";
 
 const projectForm = document.getElementById("projectForm");
 const projectsList = document.getElementById("projectsList");
