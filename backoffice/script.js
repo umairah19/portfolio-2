@@ -17,7 +17,12 @@ const tags = document.getElementById("tags");
 
 function loadProjects() {
   fetch(API_URL)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to load projects");
+      }
+      return response.json();
+    })
     .then(projects => {
       projectsList.innerHTML = "";
 
@@ -77,6 +82,7 @@ function loadProjects() {
     })
     .catch(error => {
       console.error("Error loading projects:", error);
+
       projectsList.innerHTML = `
         <div class="empty-message">
           Unable to load projects. Make sure the backend server is running.
@@ -89,42 +95,46 @@ projectForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const projectData = {
-    title: title.value,
-    category: category.value,
-    description: description.value,
-    tags: tags.value
+    title: title.value.trim(),
+    category: category.value.trim(),
+    description: description.value.trim(),
+    tags: tags.value.trim()
   };
 
-  if (projectId.value === "") {
-    fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(projectData)
+  const url = projectId.value === "" ? API_URL : `${API_URL}/${projectId.value}`;
+  const method = projectId.value === "" ? "POST" : "PUT";
+
+  fetch(url, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(projectData)
+  })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(errorData => {
+          throw new Error(errorData.message || "Request failed");
+        });
+      }
+
+      return response.json();
     })
-      .then(response => response.json())
-      .then(() => {
-        projectForm.reset();
-        message.textContent = "Project saved successfully!";
-        loadProjects();
-      });
-  } else {
-    fetch(`${API_URL}/${projectId.value}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(projectData)
+    .then(() => {
+      projectForm.reset();
+      projectId.value = "";
+
+      message.textContent =
+        method === "POST"
+          ? "Project saved successfully!"
+          : "Project updated successfully!";
+
+      loadProjects();
     })
-      .then(response => response.json())
-      .then(() => {
-        projectForm.reset();
-        projectId.value = "";
-        message.textContent = "Project updated successfully!";
-        loadProjects();
-      });
-  }
+    .catch(error => {
+      console.error("Error saving project:", error);
+      message.textContent = "Project could not be saved. Check the API or database.";
+    });
 });
 
 function editProject(project) {
@@ -135,6 +145,7 @@ function editProject(project) {
   tags.value = project.tags;
 
   message.textContent = "Editing selected project...";
+
   window.scrollTo({
     top: 0,
     behavior: "smooth"
@@ -148,10 +159,20 @@ function deleteProject(id) {
     fetch(`${API_URL}/${id}`, {
       method: "DELETE"
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to delete project");
+        }
+
+        return response.json();
+      })
       .then(() => {
         message.textContent = "Project deleted successfully!";
         loadProjects();
+      })
+      .catch(error => {
+        console.error("Error deleting project:", error);
+        message.textContent = "Project could not be deleted.";
       });
   }
 }
