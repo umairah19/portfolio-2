@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio Backoffice | Umairah Tarsoo</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -15,16 +15,9 @@
       <h2 class="logo">Umairah<span>.</span></h2>
 
       <div class="header-right">
-
-  <div class="admin-badge">
-    Project Backoffice
-  </div>
-
-  <button id="logoutBtn" class="logout-btn">
-    Logout
-  </button>
-
-</div>
+        <div class="admin-badge">Project Backoffice</div>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
     </nav>
   </header>
 
@@ -51,25 +44,23 @@
         <h2>Add / Edit Project</h2>
 
         <form id="projectForm">
-
           <input type="hidden" id="projectId">
 
-          <label>Project Title</label>
+          <label for="title">Project Title</label>
           <input type="text" id="title" placeholder="Enter project title" required>
 
-          <label>Category</label>
+          <label for="category">Category</label>
           <input type="text" id="category" placeholder="Enter project category" required>
 
-          <label>Description</label>
+          <label for="description">Description</label>
           <textarea id="description" placeholder="Enter project description" required></textarea>
 
-          <label>Tags</label>
+          <label for="tags">Tags</label>
           <input type="text" id="tags" placeholder="Example: HTML, CSS, JavaScript" required>
 
           <button type="submit" class="save-btn">Save Project</button>
 
           <p id="message"></p>
-
         </form>
       </div>
 
@@ -86,8 +77,6 @@
 
   </main>
 
-  <script src="script.js"></script>
-
+  <script src="./script.js"></script>
 </body>
-
 </html>
