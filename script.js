@@ -5,6 +5,7 @@ function toggleMenu() {
 
 const API_URL = "https://portfolio-2-production-a642.up.railway.app/api/projects";
 
+
 async function loadProjects() {
   const projectsContainer = document.getElementById("homepageProjects");
 
